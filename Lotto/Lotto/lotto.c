@@ -2,35 +2,7 @@
 #include <stdio.h>  
 #include <stdlib.h>
 #include <time.h>
-
-
-void user_lotto()
-{
-
-    int ary[7] = { 0 };
-    int i;
-    int j;
-
-    for (i = 0; i < 7; i++)
-    {
-        ary[i] = rand() % 45 + 1;
-        for (j = 0; j < i; j++)
-        {
-            if (ary[i] == ary[j])
-                i--;
-        }
-    }
-
-    for (int i = 0; i < 7; i++) {
-        printf("[%d] ", ary[i]);
-    }
-}
-
-void check_lotto()
-{
-
-}
-
+#include "lotto.h"
 
 
 int main(void)
@@ -38,11 +10,12 @@ int main(void)
     static int number = 1; // 로또 회차 담는 변수
     static int total = 583900000; // 로또 총 금액 담는 변수
     int tn, mn; // 
-    int hm = 0;
+    static int hm = 0;
     int i, j, o;
     char qs;
     int value[7] = { 1, 2, 3, 4, 5, 6, 7 };
     srand((unsigned)time(NULL));
+    
     while (1) {
         printf("-----------------------------------\n");
         printf("-----------------------------------\n");
@@ -62,37 +35,12 @@ int main(void)
         printf("-----------------------------------\n");
         scanf("%d", &mn);
 
-        for (i = 1; i < 101; i++)
-        {
-            if (tn >= i)
-                hm += 1000;
-        }
+        hm = money_check(tn); // 현재 이용한 금액을 체크해서 hm 이라는 변수에 저장해줍니다.
 
-
-        switch (mn) {
-        case 1:
-            printf("신용카드 %d원 결제가 되었습니다.\n", hm);
-            break;
-        case 2:
-            printf("현금 %d원 결제가 되었습니다.\n", hm);
-            break;
-        case 3:
-            printf("휴대폰 %d원 결제가 되었습니다.\n", hm);
-            break;
-        case 4:
-            printf("문화상품권 %d원 결제가 되었습니다.\n", hm);
-            break;
-        }
-
+        buy_result(mn, hm); // 구매한 
         printf("일확천금의 기회를 노리시겠습니까?(y/n)\n");
         scanf("%d", &qs);
-        switch (qs) {
-        case 'y':
-            break;
-        case 'n':
-            break;
-        }
-
+        chance(qs);
 
 
 
@@ -118,6 +66,11 @@ int main(void)
         printf("입니다. ");
         getch();
         number++;
+        tn = 0;
+        hm = 0;
+        qs = 'n';
+
+        rewind(stdin); // scanf 버퍼 초기화!
     }
 
 }
