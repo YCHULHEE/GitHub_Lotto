@@ -35,8 +35,9 @@ void check_lotto()
 
 int main(void)
 {
-    static int total = 583900000;
-    int tn, mn;
+    static int number = 1; // 로또 회차 담는 변수
+    static int total = 583900000; // 로또 총 금액 담는 변수
+    int tn, mn; // 
     int hm = 0;
     int i, j, o;
     char qs;
@@ -48,8 +49,11 @@ int main(void)
         printf("---------- 로또 프로그램 ----------\n");
         printf("-----------------------------------\n");
         printf("-----------------------------------\n");
-        printf("1회당 1000원. \n한번에 최대 100장까지 구매 가능합니다! \n");
-        printf("몇 회 하시겠습니까?\n");
+        printf("---------------%d회차---------------\n", number);
+        printf("-----------------------------------\n");
+        printf("-----------------------------------\n");
+        printf("1장 1000원. \n한번에 최대 100장까지 구매 가능합니다! \n");
+        printf("몇장 구매하시겠습니까?\n");
         scanf("%d", &tn);
         printf("-----------------------------------\n");
         printf("-----------------------------------\n");
@@ -58,17 +62,10 @@ int main(void)
         printf("-----------------------------------\n");
         scanf("%d", &mn);
 
-
-        if (tn == 1)
-            hm = 1000;
-        else if (tn == 3)
-            hm = 3000;
-        else if (tn == 5)
-            hm = 5000;
-        else if (tn == 10)
-            hm = 10000;
-        else {
-            printf("구매가능한 숫자만 입력하세요.");
+        for (i = 1; i < 101; i++)
+        {
+            if (tn >= i)
+                hm += 1000;
         }
 
 
@@ -87,7 +84,7 @@ int main(void)
             break;
         }
 
-        printf("도박은 건강에 안 좋습니다. 계속 하실 겁니까? y/n\n");
+        printf("일확천금의 기회를 노리시겠습니까?(y/n)\n");
         scanf("%d", &qs);
         switch (qs) {
         case 'y':
@@ -99,39 +96,19 @@ int main(void)
 
 
 
-        switch (tn) {
-        case 1:
-            printf("1번째: ");
-            user_lotto();
-            total += 1000;
-            break;
-        case 3:
-            for (i = 0; i < 3; i++) {
-                printf("%d번째: ", i + 1);
+        for (i = 1; i < 101; i++)
+        {
+            if (tn >= i) {
+                printf("%d번째: ", i);
                 user_lotto();
                 printf("\n");
                 total += 1000;
             }
-            break;
-        case 5:
-            for (i = 0; i < 5; i++) {
-                printf("%d번째: ", i + 1);
-                user_lotto();
-                printf("\n");
-                total += 1000;
-            }
-            break;
-        case 10:
-            for (i = 0; i < 10; i++) {
-                printf("%d번째: ", i + 1);
-                user_lotto();
-                printf("\n");
-                total += 1000;
-            }
-            break;
+
         }
 
-        printf("당첨되면 %d원을 얻으실수있습니다.", total);
+        printf("당첨되면 %d원을 얻으실수있습니다.\n", total);
+        printf("%d회차 당첨번호는?\n", number);
 
         getch(); // 잠시 멈추게 해주는 함수. 아무 키 입력시 코드 진행
 
@@ -140,7 +117,7 @@ int main(void)
         user_lotto();
         printf("입니다. ");
         getch();
-
+        number++;
     }
 
 }
