@@ -31,6 +31,25 @@ void user_lotto()
     }
 }
 
+//int lotto_value(int a, int b)
+//{
+//    int ary[][7] = { 0 };
+//    int i;
+//    int j;
+//    int ary1[][7] = { 0 };
+//
+//    for (i = 0; i < 7; i++)
+//    {
+//        ary[][i] = rand() % 45 + 1;
+//        for (j = 0; j < i; j++)
+//        {
+//            return ary[j][i]
+//            if (ary[i] == ary[j])
+//                i--;
+//        }
+//    }
+
+
 void buy_result(int a, int b)
 {
     switch (a) {
