@@ -9,12 +9,13 @@ void user_lotto()
     int ary[7] = { 0 };
     int i;
     int j;
-
+    
     for (i = 0; i < 7; i++)
     {
         ary[i] = rand() % 45 + 1;
         for (j = 0; j < i; j++)
         {
+
             if (ary[i] == ary[j])
                 i--;
         }
@@ -74,4 +75,21 @@ void view_init()
 {
     for (int i = 0; i < 20; i++)
         printf("\n");
+}
+
+void lotto_print(int a){
+    for (int i = 1; i < 101; i++)
+    {
+        if (a >= i) {
+            printf("%d¹øÂ°: ", i);
+            user_lotto();
+            printf("\n");
+        }
+
+    }
+}
+
+void vlaue_check()
+{
+
 }
