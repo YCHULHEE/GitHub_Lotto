@@ -8,7 +8,7 @@
 int main(void)
 {
     static int number = 1; // 로또 회차 담는 변수
-    static int total = 583900000; // 로또 총 금액 담는 변수
+    static int total = 578422000; // 로또 총 금액 담는 변수
     int tn, mn; // 
     static int hm = 0;
     int i, j, o;
@@ -71,6 +71,7 @@ int main(void)
         qs = 'n';
 
         rewind(stdin); // scanf 버퍼 초기화!
+        view_init();
     }
 
 }

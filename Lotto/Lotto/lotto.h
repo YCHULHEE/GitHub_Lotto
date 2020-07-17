@@ -69,3 +69,9 @@ int money_check(int tn) {
             return value;
     }
 }
+
+void view_init()
+{
+    for (int i = 0; i < 20; i++)
+        printf("\n");
+}
