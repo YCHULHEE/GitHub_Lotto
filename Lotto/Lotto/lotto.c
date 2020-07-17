@@ -14,6 +14,7 @@ int main(void)
     char qs; 
     srand((unsigned)time(NULL));
 
+
     while (1) {
         printf("-----------------------------------\n");
         printf("-----------------------------------\n");
@@ -45,7 +46,10 @@ int main(void)
 
         printf("\n당첨번호는 ");
         user_lotto();
-        printf("입니다. ");
+        printf("입니다. \n");
+
+        winner_print();
+
         getch();
         number++;
         tn = 0;
