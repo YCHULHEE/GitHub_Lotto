@@ -3,11 +3,10 @@
 #include <stdio.h>  
 #include <stdlib.h>
 #include <time.h>
-int ary[7] = { 0, };
-
 
 void user_lotto()
 {
+    int ary[7] = { 0 };
     int i;
     int j;
     
@@ -49,14 +48,6 @@ void user_lotto()
 //                i--;
 //        }
 //    }
-
-void winner_print()
-{
-    int ary[6] = { 1, 2, 3, 4, 5, 6 };
-    printf("1등은 %d 입니다.\n");
-    printf("2등은 %d 입니다.\n");
-    printf("3등은 %d 입니다.\n");
-}
 
 
 void buy_result(int a, int b)
