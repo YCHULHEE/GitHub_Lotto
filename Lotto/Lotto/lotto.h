@@ -3,18 +3,45 @@
 #include <stdio.h>  
 #include <stdlib.h>
 #include <time.h>
-
-void user_lotto()
+int ary[7] = { 0, };
+i/*nt ary[][7] = { 0, };
+int lotto_value(int a)
 {
-    int ary[7] = { 0 };
+    int ary[][7] = { 0, };
+    int i, j, o;
+    int ary1[][7] = { 0, };
+
+    for (o = 0; o < a; o++)
+    {
+        for (i = 0; i < 7; i++)
+        {
+            ary[o][i] = rand() % 45 + 1;
+            return ary[o][i];
+            for (j = 0; j < i; j++)
+
+                    if (ary[i] == ary[j])
+                        i--;
+            }
+        }
+    }*/
+
+    void user_lotto()
+{
     int i;
     int j;
-    
+    int temp;
+
     for (i = 0; i < 7; i++)
     {
         ary[i] = rand() % 45 + 1;
         for (j = 0; j < i; j++)
         {
+            if (ary[i] > ary[j])
+            {
+                temp = ary[i];
+                ary[i] = ary[j];
+                ary[j] = temp;
+            }
 
             if (ary[i] == ary[j])
                 i--;
@@ -31,23 +58,16 @@ void user_lotto()
     }
 }
 
-//int lotto_value(int a, int b)
+
+
+
+//void winner_print()
 //{
-//    int ary[][7] = { 0 };
-//    int i;
-//    int j;
-//    int ary1[][7] = { 0 };
-//
-//    for (i = 0; i < 7; i++)
-//    {
-//        ary[][i] = rand() % 45 + 1;
-//        for (j = 0; j < i; j++)
-//        {
-//            return ary[j][i]
-//            if (ary[i] == ary[j])
-//                i--;
-//        }
-//    }
+//    int ary[6] = { 1, 2, 3, 4, 5, 6 };
+//    printf("1등은 %d 입니다.\n");
+//    printf("2등은 %d 입니다.\n");
+//    printf("3등은 %d 입니다.\n");
+//}
 
 
 void buy_result(int a, int b)
@@ -112,3 +132,4 @@ void vlaue_check()
 {
 
 }
+

@@ -7,6 +7,24 @@
 
 int main(void)
 {
+   /*int ary[][7] = { 0, };
+    
+
+    for (int j = 0; j < 10; j++)
+    {`
+        ary[j][7] = lott_value(10);
+        for (int i = 0; i < 7; i++) {
+            if (i == 6) {
+                printf("보너스 번호 : [%d] ", ary[j][i]);
+                break;
+            }
+
+            printf("[%d] ", ary[i]);
+        }
+    }
+ }*/
+
+
     static int number = 1; // 로또 회차 담는 변수
     static int total = 578422000; // 로또 총 금액 담는 변수
     int tn, mn; // 로또 변수
@@ -53,6 +71,8 @@ int main(void)
         qs = 'n';
         rewind(stdin); // scanf 버퍼 초기화!
         view_init();
+
+     
     }
 
 }
