@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 int ary[7] = { 0, };
-i/*nt ary[][7] = { 0, };
+int manual_aray[] = { 0, }; // 저장되는 변수
+/*int ary[][7] = { 0, };
 int lotto_value(int a)
 {
     int ary[][7] = { 0, };
@@ -25,6 +26,8 @@ int lotto_value(int a)
         }
     }*/
 
+   
+
     void user_lotto()
 {
     int i;
@@ -36,8 +39,10 @@ int lotto_value(int a)
         ary[i] = rand() % 45 + 1;
         for (j = 0; j < i; j++)
         {
-            if (ary[i] > ary[j])
+            if (ary[i] < ary[j])
             {
+                if (ary[i] == ary[6])
+                    break;
                 temp = ary[i];
                 ary[i] = ary[j];
                 ary[j] = temp;
@@ -116,7 +121,7 @@ void view_init()
         printf("\n");
 }
 
-void lotto_print(int a){
+void auto_print(int a){
     for (int i = 1; i < 101; i++)
     {
         if (a >= i) {
@@ -128,8 +133,61 @@ void lotto_print(int a){
     }
 }
 
-void vlaue_check()
+void manual_print(int a, int* b)
 {
+    printf("로또번호: ");
+    for (int i = 0; i < 7; i++)
+    {
+        printf("[%d] ", b[i]);
+    }
+    printf("\n");
+}
+    
 
+void lotto_manual(int a, int* b)
+{
+    int temp;
+    printf("숫자를 입력해주세요");
+    for (int i = 0; i < 7; i++)
+    {
+        printf("%d번째 수:", i + 1);
+        
+        scanf("%d", &b[i]);
+        
+
+        for (int j = 0; j < i; j++)
+        {
+            if (b[i] > 45) {
+                i--;
+                printf("1 ~ 45 사이의 값을 입력하시오.\n");
+                break;
+            }
+
+            if (b[i] < b[j])
+            {
+                if (b[i] == b[6])
+                    break;
+                temp = b[i];
+                b[i] = b[j];
+                b[j] = temp;
+            }
+
+            if (b[i] == b[j])
+                i--;
+        }
+    }
+}
+
+void auto_lotto(int a, int b)
+{
+    switch (a) {
+    case 1:
+        auto_print(b);
+        break;
+    case 2:
+        lotto_manual(b, manual_aray);
+        manual_print(manual_aray);
+        break;
+    }
 }
 
