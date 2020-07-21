@@ -73,7 +73,7 @@ int main(void)
         printf("\n당첨번호는 ");
         answer_lotto();
         printf("입니다. ");
-
+        check_print();
         /*print_chance(void);*/
         getch();
         number++;

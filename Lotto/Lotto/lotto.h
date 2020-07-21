@@ -6,41 +6,22 @@
 int ary[7] = { 0, };
 int manual_aray[] = { 0, }; // 저장되는 변수
 int lotto_number[45] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ,15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25,
-26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45};
+    26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+struct Lotto {
+    int count1;
+    int count2;
+    int number1;
+    int number2;
+};
+struct Lotto list[45];
 
-
-static int lotto_count1[45] = { 0, };
-static int lotto_count2[45] = { 0, };
-
-/*int ary[][7] = { 0, };
-int lotto_value(int a)
+void check_print()
 {
-    int ary[][7] = { 0, };
-    int i, j, o;
-    int ary1[][7] = { 0, };
-
-    for (o = 0; o < a; o++)
-    {
-        for (i = 0; i < 7; i++)
-        {
-            ary[o][i] = rand() % 45 + 1;
-            return ary[o][i];
-            for (j = 0; j < i; j++)
-
-                    if (ary[i] == ary[j])
-                        i--;
-            }
-        }
-    }*/
-
+    for (int i = 44; i > 35; i--)
+        printf("번호:%d번이 %d번 나왔습니다.\n", list[i].number2, list[i].count2);
+}
    
-//void print_chance()
-//{
-//    for (int i = 0; i < 45; i++)
-//    {
-//        printf("%d의 확률 : %d, ", i + 1, lotto_co[i]);
-//    }
-//}
+
 
 void count_check()
 {
@@ -48,11 +29,20 @@ void count_check()
     int temp;
     for (i = 0; i < 45; i++)
     {
-        lotto_count2[i] = lotto_count1[i];
-
-
-
-        
+        list[i].count2 = list[i].count1;
+        list[i].number2 = list[i].number1;
+        for (j = 0; j < i; j++)
+        {
+            if (list[i].count2 <= list[j].count2)
+            {
+                temp = list[i].count2;
+                list[i].count2 = list[j].count2;
+                list[j].count2 = temp;
+                temp = list[i].number2;
+                list[i].number2 = list[j].number2;
+                list[j].number2 = temp;
+            }
+        }
     }
 }
 
@@ -60,16 +50,19 @@ void count_check()
 {
     int i, j, o;
     int temp;
+    
 
     for (i = 0; i < 7; i++)
     {
         ary[i] = rand() % 45 + 1;
+      
         for (o = 0; o < 45; o++)
         {
-            if (ary[i] == lotto_number[o])
-                lotto_count1[o]++;
+            list[o].number1 = o + 1;
+            if (ary[i] == list[o].number1)
+                list[o].count1++;
         }
-    
+
         for (j = 0; j < i; j++)
         {
             if (ary[i] < ary[j])
@@ -80,8 +73,15 @@ void count_check()
 
             }
 
-            if (ary[i] == ary[j])
+
+            if (ary[i] == ary[j]) {
+                for (o = 0; o < 45; o++)
+                {
+                    if (ary[i] == list[o].number1)
+                        list[o].count1--;
+                }
                 i--;
+            }
         }
     }
 
