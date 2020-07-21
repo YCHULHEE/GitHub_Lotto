@@ -69,10 +69,12 @@ int main(void)
         printf("당첨되면 %d원을 얻으실수있습니다.\n", total);
         printf("%d회차 당첨번호는?\n", number);
         getch(); // 잠시 멈추게 해주는 함수. 아무 키 입력시 코드 진행
-
+        count_check();
         printf("\n당첨번호는 ");
-        user_lotto();
+        answer_lotto();
         printf("입니다. ");
+
+        /*print_chance(void);*/
         getch();
         number++;
         tn = 0;
