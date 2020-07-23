@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int ary[7] = { 0, };  // 로또번호 7개를 표현할 때 공통적으로 사용되는 변수.
+int ary[6] = { 0, };  // 로또번호 7개를 표현할 때 공통적으로 사용되는 변수.
 
 int manual_aray[] = { 0, }; // 수동 입력의 로또번호를 담는 변수
 int lotto_number[45] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ,15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25,
@@ -16,6 +16,7 @@ struct Lotto {
     int number1; // 당첨횟수를 가르키는 로또번호의 주소
     int number2; // 선택정렬로 정리한 당첨횟수를 가르키는 로또번호의 주소
 };
+
 /* 홀수 짝수 가중치 담는 구조체  짝수_홀수_카운트 예) six_zero 일 경우 짝수 6 홀수 0  */
 struct Weight {
     int six_zero_count; 
@@ -25,6 +26,7 @@ struct Weight {
     int two_four_count;
     int one_five_count;
     int zero_six_count;
+    int total_count;
 };
 
 struct Weight weight[1]; // 가중치 구조체를 선언하여 weight 이름으로 구조체 변수 선언
@@ -33,6 +35,7 @@ struct Weight weight[1]; // 가중치 구조체를 선언하여 weight 이름으로 구조체 변수
 struct Lotto list[45]; /* 로또번호와 당첨횟수를 담는 구조체를 list 이름으로 45개의 구조체 변수 선언 
                        45개로 선언한 이유는 로또번호 1에서 45까지 담을 구조체를 만들기 위해서이다.*/
 
+struct Lotto wl[45]; 
 
 //void file_read() {
 //    char ch;
@@ -81,14 +84,14 @@ void highcheck_print(int a) // 확률이 높은 숫자를 출력하는 함수
 {
     printf("\n확률이 높은 숫자 10개\n");
     for (int i = 44; i > 34; i--)
-        printf("번호: %d번 당첨 횟수: %d\n", list[i].number2, list[i].count2);
+        printf("번호: %d번 당첨 횟수: %.3f\n", list[i].number2, (double)list[i].count2 / (a * 6) * 100);
 }
 
 void lowcheck_print(int a) // 확률이 낮은 숫자를 출력하는 함수
 {
     printf("\n확률이 낮은 숫자 5개\n");
     for (int i = 0; i < 5; i++)
-        printf("번호: %d번 당첨 횟수: %d\n", list[i].number2, list[i].count2);
+        printf("번호: %d번 당첨 횟수: %.3f\n", list[i].number2, (double)list[i].count2 / (a * 6) * 100);
 }
 
 //void recommend_lottonum()
@@ -128,7 +131,7 @@ void user_lotto() //로또번호를 생성하는 함수
     int temp;
     int odd_number = 0; // 홀수 변수
     int even_number = 0; // 짝수 변수
-
+    int ary[6] = { 0, };
     for (i = 0; i < 6; i++) // 로또 번호 6개를 뽑고 뽑을 때마다 짝수인지 홀수인지 비교하여 변수에 저장한다.
     {
         ary[i] = rand() % 45 + 1;
@@ -189,6 +192,8 @@ void user_lotto() //로또번호를 생성하는 함수
                 weight[0].zero_six_count++;
         }
     }
+    weight[0].total_count = weight[0].six_zero_count + weight[0].five_one_count + weight[0].four_two_count +
+        weight[0].three_three_count + weight[0].two_four_count + weight[0].one_five_count + weight[0].zero_six_count;
 
     for (int i = 0; i < 6; i++) // 생성된 로또번호를  출력하는 반복문
     {
@@ -198,10 +203,189 @@ void user_lotto() //로또번호를 생성하는 함수
             break;
         }
     }
+
 }
+
+void weight_lotto() // 가중치를 가지고 출력하는 함수.
+{
+    int i, j, o;
+    int temp;
+    int odd_number = 0; // 홀수 변수
+    int even_number = 0; // 짝수 변수
+    int flag = 0;
+    int ary[6] = { 0, };
+
+    while (!flag) {
+        for (i = 0; i < 6; i++) // 로또 번호 6개를 뽑고 뽑을 때마다 짝수인지 홀수인지 비교하여 변수에 저장한다.
+        {
+
+            ary[i] = rand() % 45 + 1;
+            if (ary[i] % 2 == 0)
+                even_number++;
+            else if (ary[i] % 2 == 1)
+                odd_number++;
+
+            for (o = 0; o < 45; o++) // 로또번호의 당첨횟수를 증가시키는 반복문
+            {
+                wl[o].number1 = o + 1;
+                if (ary[i] == wl[o].number1)
+                    wl[o].count1++;
+            }
+
+            for (j = 0; j < i; j++) // 로또 번호가 나왔을 때 오름차순으로 정렬시켜주는 반복문
+            {
+                if (ary[i] < ary[j])
+                {
+                    temp = ary[i];
+                    ary[i] = ary[j];
+                    ary[j] = temp;
+
+
+                }
+
+
+                if (ary[i] == ary[j]) // 중복일시 당첨횟수를 줄이고 짝수 홀수 카운팅횟수를 줄이는 조건문
+                {
+                    for (o = 0; o < 45; o++)
+                    {
+                        if (ary[i] == wl[o].number1) {
+                            wl[o].count1--;
+                            if (ary[i] % 2 == 0)
+                                even_number--;
+                            else if (ary[i] % 2 == 1)
+                                odd_number--;
+                        }
+                    }
+                    i--;
+                }
+            }
+            if (i == 5) // 짝수 홀수 나오는 횟수를 가지고 경우의 수를 구별하는 조건문
+            {
+                if (even_number == 6 && odd_number == 0)
+                    weight[0].six_zero_count--;
+                else if (even_number == 5 && odd_number == 1)
+                    weight[0].five_one_count--;
+                else if (even_number == 4 && odd_number == 2)
+                    weight[0].four_two_count--;
+                else if (even_number == 3 && odd_number == 3)
+                    weight[0].three_three_count--;
+                else if (even_number == 2 && odd_number == 4)
+                    weight[0].two_four_count--;
+                else if (even_number == 1 && odd_number == 5)
+                    weight[0].one_five_count--;
+                else if (even_number == 0 && odd_number == 6)
+                    weight[0].zero_six_count--;
+            }
+
+
+            /*if (i == 5) {
+                if (weight[0].six_zero_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+                else if (weight[0].five_one_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+                else if (weight[0].four_two_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+                else if (weight[0].three_three_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+                else if (weight[0].two_four_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+                else if (weight[0].one_five_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+                else if (weight[0].zero_six_count == 0)
+                {
+                    i = 0;
+                    even_number = 0;
+                    odd_number = 0;
+                }
+            }*/
+
+            if (weight[0].zero_six_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].zero_six_count++;
+            }
+            else if (weight[0].five_one_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].five_one_count++;
+            }
+            else if (weight[0].four_two_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].four_two_count++;
+            }
+            else if (weight[0].three_three_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].three_three_count++;
+            }
+            else if (weight[0].two_four_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].two_four_count++;
+            }
+            else if (weight[0].one_five_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].one_five_count++;
+            }
+            else if (weight[0].zero_six_count == -1) {
+                i = 0;
+                even_number = 0;
+                odd_number = 0;
+                weight[0].zero_six_count++;
+            }
+            else {
+                for (int i = 0; i < 6; i++) // 생성된 로또번호를  출력하는 반복문
+                {
+                    printf("[%d] ", ary[i]);
+                    if (i == 6) {
+                        printf("\n");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    weight[0].total_count--;
+}
+
+
+
 
 void answer_lotto() // 당첨번호를 출력하는 함수
 {
+    int ary[7] = { 0, };
     int i;
     int j;
     int temp;
@@ -304,6 +488,21 @@ void auto_print(int a) // a라는 변수 값을 받아 a 횟수 만큼 로또번호를 생성해서 �
     }
 }
 
+void auto_print1(int a) // a라는 변수 값을 받아 a 횟수 만큼 로또번호를 생성해서 출력하는 함수
+{
+
+    for (int i = 1; i < 10001; i++)
+    {
+        if (a >= i) {
+            printf("[%d]번째 로또번호: ", i);
+            weight_lotto(); //로또 생성하는 함수
+            printf("\n");
+        }
+
+    }
+
+}
+
 void manual_print(int a, int* b) // 수동 입력한 로또 번호 값을 출력해주는 함수
 {
     for (int o = 0; o < a; o++)
@@ -365,9 +564,12 @@ void auto_lotto(int a, int b) // 수동입력할지 자동입력할지 여부를 결정하는 함수
         lotto_manual(b, manual_aray);
         manual_print(b, manual_aray);
         break;
+    case 3:
+        auto_print1(b);
     default :
         printf("오류 다시 하시오.");
         break;
     }
 }
+
 
