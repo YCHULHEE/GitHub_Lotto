@@ -62,7 +62,13 @@ int main(void)
         getch();
         lowcheck_print(tn);
         /*print_chance(void);*/
-        auto_print1(10);
+        for (int i = 1; i < 1001; i++)
+        {
+                printf("[%d]번째 로또번호: ", i);
+                change_lotto(); //로또 생성하는 함수
+                printf("\n");
+            }
+        count_check1();
         getch();
         number++;
         hm = 0;

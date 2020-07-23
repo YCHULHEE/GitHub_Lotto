@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-
+void change_lotto();
 /*확률이 높은 숫자를 출력하는 함수 */
 void highcheck_print(int a);
 /*확률이 낮은 숫자를 출력하는 함수*/
@@ -32,3 +32,4 @@ void lotto_manual(int a, int* b);
 /*수동입력할지 자동입력할지 여부를 결정하는 함수*/
 void auto_lotto(int a, int b);
 
+void change_print(int a);
