@@ -40,4 +40,5 @@ void odd_even_check_print(int a);
 int comb(int n, int r);
 /*짝수 홀수 경우의 수 출력*/
 void even_odd_print(int c);
+/*글자 위치 지정 해주는 함수*/
 void gotoxy(int x, int y);

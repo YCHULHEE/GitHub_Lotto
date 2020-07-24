@@ -6,6 +6,7 @@
 #include "lotto.h"
 #include <windows.h>
 
+
 int ary[6] = { 0, };  // 로또번호 7개를 표현할 때 공통적으로 사용되는 변수.
 
 int manual_aray[] = { 0, }; // 수동 입력의 로또번호를 담는 변수

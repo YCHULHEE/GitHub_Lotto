@@ -18,9 +18,9 @@ int main(void)
     int x = 23; //타이틀화면이 표시되는 x좌표 
     int y = 4; //타이틀화면이 표시되는 y좌표 
     int cnt; //타이틀 프레임을 세는 변수  
-
     srand((unsigned)time(NULL));  //시간을 이용한 시드값 설정하는 함수
     while (1) {
+
         SetConsoleTitle("Lotto Program");
         system("mode con cols=120 lines=48");
         system("color E");
@@ -77,5 +77,4 @@ int main(void)
         rewind(stdin); // scanf 버퍼 초기화!
         system("cls");
     }
-
 }
