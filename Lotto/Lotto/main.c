@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "lotto.h"
+#include <windows.h>
 
 
 int main(void)
@@ -14,85 +15,67 @@ int main(void)
     char qs; // y/n 값 받는 변수
     int at_num; // 수동 자동 저장하는 변수
     int manual_aray[] = { 0, }; // 저장되는 변수
-    int on = 0; // 홀수 변수
-    int en = 0; // 짝수 변수
+    int x = 23; //타이틀화면이 표시되는 x좌표 
+    int y = 4; //타이틀화면이 표시되는 y좌표 
+    int cnt; //타이틀 프레임을 세는 변수  
 
     srand((unsigned)time(NULL));  //시간을 이용한 시드값 설정하는 함수
-
     while (1) {
-        printf("-----------------------------------\n");
-        printf("-----------------------------------\n");
-        printf("---------- Lotto Program ----------\n");
-        printf("-----------------------------------\n");
-        printf("-----------------------------------\n");
-        printf("---------------%dround--------------\n", number);
-        printf("-----------------------------------\n");
-        printf("-----------------------------------\n");
-        printf("1장 1000원. \n한번에 최대 10장까지 구매 가능합니다! \n");
-        printf("몇장 구매하시겠습니까?\n");
-        scanf("%d", &tn); // 티켓 구매 횟수
-        printf("-----------------------------------\n");
-        printf("-----------------------------------\n");
-        printf("1.\t자동 입력\n2.\t수동 입력\n");
-        scanf("%d", &at_num);
-        printf("-----------------------------------\n");
-        printf("-----------------------------------\n");
-        printf("결제 하실 시스템을 선택해주세요. \n");
-        printf(" 1번\t신용카드 결제\n 2번\t현금 결제\n 3번\t휴대폰 결제\n 4번\t문화상품권 결제\n");
-        printf("-----------------------------------\n");
-        scanf("%d", &mn);
-        hm = money_check(tn); // 현재 이용한 금액을 체크해서 hm 이라는 변수에 저장해줍니다.
-        buy_result(mn, hm); // 뭐로 결제하고 금액은 얼마인지 알려주는 함수.
-        printf("일확천금의 기회를 노리시겠습니까?(y/n)\n");
-        scanf(" %c", &qs); // 로또할 의사를 받는 변수
-        total = total + 1000 * tn;
+        SetConsoleTitle("Lotto Program");
+        system("mode con cols=120 lines=48");
+        system("color E");
+        gotoxy(x, y + 0); printf("■□□□■■■□□■■□□■■"); Sleep(100);
+        gotoxy(x, y + 1); printf("■■■□  ■□□    ■■□□■"); Sleep(100);
+        gotoxy(x, y + 2); printf("□□□■              □■  ■"); Sleep(100);
+        gotoxy(x, y + 3); printf("■■□■■  □  ■  □□■□□"); Sleep(100);
+        gotoxy(x, y + 4); printf("■■  ■□□□■■■□■■□□"); Sleep(100);
+        gotoxy(x, y + 5); printf("■■■■Lotto Program■■■■"); Sleep(100);
+        gotoxy(x, y + 6); printf("■□□□■■■□□■■□□■■"); Sleep(100);
+        gotoxy(x, y + 7); printf("■■■□  ■□□    ■■□□■"); Sleep(100);
+        gotoxy(x, y + 8); printf("□□□■              □■  ■"); Sleep(100);
+        gotoxy(x, y + 9); printf("■■□■■  □  ■  □□■□□"); Sleep(100);
+        gotoxy(x, y + 10); printf("■■  ■□□□■■■□■■□□\n"); Sleep(100);
+        gotoxy(x, y + 11); printf("-----------%dround-------------\n", number); Sleep(100);
+        gotoxy(x, y + 12); printf("----로또 1등 산출 프로그램----\n"); Sleep(100);
+        gotoxy(x, y + 13); printf("로또 회차를 입력해주세요.\n"); Sleep(100);
+        gotoxy(x, y + 14); scanf("%d", &tn); // 로또 회차
+  
+        gotoxy(x, y + 15); printf("1.\t자동 입력\n");
+        gotoxy(x, y + 16); scanf("%d", &at_num);
+        gotoxy(x, y + 17); printf("------------------------------\n");
+        gotoxy(x, y + 18); printf("------------------------------\n");
+        gotoxy(x, y + 19); printf("일확천금의 기회를 노리시겠습니까?(y/n)\n");
+        gotoxy(x, y + 20); scanf(" %c", &qs); // 로또할 의사를 받는 변수
         chance(qs);
-        auto_lotto(at_num, tn);
-
-
-
-        printf("당첨되면 %d원을 얻으실수있습니다.\n", total);
-        printf("%d회차 당첨번호는?\n", number);
-        getch(); // 잠시 멈추게 해주는 함수. 아무 키 입력시 코드 진행
-        count_check();
-        printf("\n당첨번호는 ");
-        answer_lotto();
-        printf("입니다.\n");
-        
+        gotoxy(x, y); auto_lotto(at_num, tn);
+        getch();
+        count_check1();
         getch(); // 잠시 프로그램 동작을 멈추는 함수
         highcheck_print(tn);
         getch();
         lowcheck_print(tn);
+        getch();
+        
         /*print_chance(void);*/
-        for (int i = 1; i < 1001; i++)
-        {
-                printf("[%d]번째 로또번호: ", i);
-                change_lotto(); //로또 생성하는 함수
-                printf("\n");
-            }
-        count_check1();
+        change_print(tn);
+        count_check2();
         getch();
-        
-        while (1) {
-            printf("\n짝수 홀수를 대입하여 로또번호를 추출\n");
-            printf("짝수를 입력해주세요.");
-            scanf("%d", &en);
-            printf("\n홀수를 입력해주세요.");
-            scanf("%d", &on);
-            printf("로또번호는 ");
-            even_odd_result(en, on);
-            printf("입니다. \n");
-        }
+        changecheck1_print(tn);
         getch();
-        
-
+        changecheck2_print(tn);
+        getch();
+        printf("\n\n\n");
+        probaility_value();
+        getch();
+        odd_even_check_print(tn);
+        getch();
+        even_odd_print(tn);
+        getch();
         number++;
         hm = 0;
         qs = 'n';
         rewind(stdin); // scanf 버퍼 초기화!
-        view_init();
-
-
+        system("cls");
     }
 
 }
