@@ -14,6 +14,8 @@ int main(void)
     char qs; // y/n 값 받는 변수
     int at_num; // 수동 자동 저장하는 변수
     int manual_aray[] = { 0, }; // 저장되는 변수
+    int on = 0; // 홀수 변수
+    int en = 0; // 짝수 변수
 
     srand((unsigned)time(NULL));  //시간을 이용한 시드값 설정하는 함수
 
@@ -70,6 +72,20 @@ int main(void)
             }
         count_check1();
         getch();
+        
+        while (1) {
+            printf("\n짝수 홀수를 대입하여 로또번호를 추출\n");
+            printf("짝수를 입력해주세요.");
+            scanf("%d", &en);
+            printf("\n홀수를 입력해주세요.");
+            scanf("%d", &on);
+            printf("로또번호는 ");
+            even_odd_result(en, on);
+            printf("입니다. \n");
+        }
+        getch();
+        
+
         number++;
         hm = 0;
         qs = 'n';

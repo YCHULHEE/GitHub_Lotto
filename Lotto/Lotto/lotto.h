@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+void even_odd_result(int a, int b);
+
 void change_lotto();
 /*확률이 높은 숫자를 출력하는 함수 */
 void highcheck_print(int a);

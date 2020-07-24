@@ -163,10 +163,10 @@ void user_lotto() //로또번호를 생성하는 함수
     for (i = 0; i < 6; i++) // 로또 번호 6개를 뽑고 뽑을 때마다 짝수인지 홀수인지 비교하여 변수에 저장한다.
     {
         ary[i] = rand() % 45 + 1;
-        if (ary[i] % 2 == 0)
+        /*if (ary[i] % 2 == 0)
             even_number++;
         else if (ary[i] % 2 == 1)
-            odd_number++;
+            odd_number++;*/
 
         for (o = 0; o < 45; o++) // 로또번호의 당첨횟수를 증가시키는 반복문
         {
@@ -193,35 +193,140 @@ void user_lotto() //로또번호를 생성하는 함수
                 {
                     if (ary[i] == list[o].number1) {
                         list[o].count1--;
-                        if (ary[i] % 2 == 0)
+                        /*if (ary[i] % 2 == 0)
                             even_number--;
                         else if (ary[i] % 2 == 1)
-                            odd_number--;
+                            odd_number--;*/
                     }
                 }
                 i--;
             }
         }
-        if (i == 5) // 짝수 홀수 나오는 횟수를 가지고 경우의 수를 구별하는 조건문
-        {
-            if (even_number == 6 && odd_number == 0)
-                weight[0].six_zero_count++;
-            else if (even_number == 5 && odd_number == 1)
-                weight[0].five_one_count++;
-            else if (even_number == 4 && odd_number == 2)
-                weight[0].four_two_count++;
-            else if (even_number == 3 && odd_number == 3)
-                weight[0].three_three_count++;
-            else if (even_number == 2 && odd_number == 4)
-                weight[0].two_four_count++;
-            else if (even_number == 1 && odd_number == 5)
-                weight[0].one_five_count++;
-            else if (even_number == 0 && odd_number == 6)
-                weight[0].zero_six_count++;
-        }
+        //if (i == 5) // 짝수 홀수 나오는 횟수를 가지고 경우의 수를 구별하는 조건문
+        //{
+        //    if (even_number == 6 && odd_number == 0)
+        //        weight[0].six_zero_count++;
+        //    else if (even_number == 5 && odd_number == 1)
+        //        weight[0].five_one_count++;
+        //    else if (even_number == 4 && odd_number == 2)
+        //        weight[0].four_two_count++;
+        //    else if (even_number == 3 && odd_number == 3)
+        //        weight[0].three_three_count++;
+        //    else if (even_number == 2 && odd_number == 4)
+        //        weight[0].two_four_count++;
+        //    else if (even_number == 1 && odd_number == 5)
+        //        weight[0].one_five_count++;
+        //    else if (even_number == 0 && odd_number == 6)
+        //        weight[0].zero_six_count++;
+        //}
     }
     weight[0].total_count = weight[0].six_zero_count + weight[0].five_one_count + weight[0].four_two_count +
         weight[0].three_three_count + weight[0].two_four_count + weight[0].one_five_count + weight[0].zero_six_count;
+
+    for (int i = 0; i < 6; i++) // 생성된 로또번호를  출력하는 반복문
+    {
+        printf("[%d] ", ary[i]);
+        if (i == 6) {
+            printf("\n");
+            break;
+        }
+    }
+
+}
+
+void even_odd_result(int a, int b) //로또번호를 생성하는 함수
+{
+    int i, j, o;
+    int temp;
+    int even_number = a; // 짝수 변수
+    int odd_number = b; // 홀수 변수
+    int ary[6] = { 0, };
+    for (i = 0; i < even_number; i++) // 로또 번호 6개를 뽑고 뽑을 때마다 짝수인지 홀수인지 비교하여 변수에 저장한다.
+    {
+        ary[i] = ((rand() % 45)) + 1 ;
+        if ((ary[i] % 2) == 1) {
+            i--;
+            continue;
+        }
+            
+
+        for (o = 0; o < 45; o++) // 로또번호의 당첨횟수를 증가시키는 반복문
+        {
+            list[o].number1 = o + 1;
+            if (ary[i] == list[o].number1)
+                list[o].count1++;
+        }
+
+        for (j = 0; j < i; j++) // 로또 번호가 나왔을 때 오름차순으로 정렬시켜주는 반복문
+        {
+            if (ary[i] < ary[j])
+            {
+                temp = ary[i];
+                ary[i] = ary[j];
+                ary[j] = temp;
+
+
+            }
+
+            if (ary[i] == ary[j]) // 중복일시 당첨횟수를 줄이고 짝수 홀수 카운팅횟수를 줄이는 조건문
+            {
+                for (o = 0; o < 45; o++)
+                {
+                    if (ary[i] == list[o].number1) {
+                        list[o].count1--;
+                        /*if (ary[i] % 2 == 0)
+                            even_number--;
+                        else if (ary[i] % 2 == 1)
+                            odd_number--;*/
+                    }
+                }
+                i--;
+            }
+        }
+    }
+    for (i=even_number; i < 6; i++) // 로또 번호 6개를 뽑고 뽑을 때마다 짝수인지 홀수인지 비교하여 변수에 저장한다.
+    {
+        ary[i] = rand() % 45 + 1;
+        if ((ary[i] % 2) == 0) {
+            i--;
+            continue;
+        }
+
+        for (o = 0; o < 45; o++) // 로또번호의 당첨횟수를 증가시키는 반복문
+        {
+            list[o].number1 = o + 1;
+            if (ary[i] == list[o].number1)
+                list[o].count1++;
+        }
+
+        for (j = 0; j < i; j++) // 로또 번호가 나왔을 때 오름차순으로 정렬시켜주는 반복문
+        {
+            if (ary[i] < ary[j])
+            {
+                temp = ary[i];
+                ary[i] = ary[j];
+                ary[j] = temp;
+
+
+            }
+
+            if (ary[i] == ary[j]) // 중복일시 당첨횟수를 줄이고 짝수 홀수 카운팅횟수를 줄이는 조건문
+            {
+                for (o = 0; o < 45; o++)
+                {
+                    if (ary[i] == list[o].number1) {
+                        list[o].count1--;
+                        /*if (ary[i] % 2 == 0)
+                            even_number--;
+                        else if (ary[i] % 2 == 1)
+                            odd_number--;*/
+                    }
+                }
+                i--;
+            }
+        }
+    }
+
 
     for (int i = 0; i < 6; i++) // 생성된 로또번호를  출력하는 반복문
     {
