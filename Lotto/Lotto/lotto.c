@@ -6,8 +6,7 @@
 #include "lotto.h"
 #include <windows.h>
 
-
-int ary[6] = { 0, };  // 로또번호 7개를 표현할 때 공통적으로 사용되는 변수.
+int ary[6] = { 0, };  // 로또번호 6개를 표현할 때 공통적으로 사용되는 변수.
 
 int manual_aray[] = { 0, }; // 수동 입력의 로또번호를 담는 변수
 int lotto_number[45] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ,15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25,
@@ -49,7 +48,7 @@ void highcheck_print(int a) // 확률이 높은 숫자를 출력하는 함수
     }
 }
 
-void lowcheck_print(int a) // 확률이 낮은 숫자를 출력하는 함수
+void lowcheck_print(int a) // 로또 번호 순으로 출력하는 함수
 {
     printf("\n로또 번호순으로 정렬\n");
     for (int i = 0; i < 45; i++)
@@ -73,14 +72,15 @@ void changecheck2_print(int a) // 로또 숫자 대로 출력
             
 }   
 
-void odd_even_check_print(int a)
+void odd_even_check_print(int a) // 가중치를 적용한 홀짝의 확률과 갯수 출력하는 함수
 {
-    printf("\n홀수와 짝수의 비율에 따른 확률\n");
-    printf("홀수 6 짝수 0 : %.2f%%\n홀수 5 짝수 1 : %.2f%%\n홀수 4 짝수 2 : %.2f%%\n홀수 3 짝수 3 : %.2f%%\n홀수 2 짝수 4 : %.2f%%\n홀수 1 짝수 5 : %.2f%%\n홀수 0 짝수 6 : %.2f%%\n전체 횟수 : %d \n",
-        ((double)weight[0].zero_six_count / weight[0].total_count) * 100, ((double)weight[0].one_five_count / weight[0].total_count) * 100,
-        ((double)weight[0].two_four_count / weight[0].total_count) * 100, ((double)weight[0].three_three_count / weight[0].total_count) * 100,
-        ((double)weight[0].four_two_count / weight[0].total_count) * 100, ((double)weight[0].five_one_count / weight[0].total_count) * 100,
-        ((double)weight[0].six_zero_count / weight[0].total_count) * 100, weight[0].total_count);
+    printf("\n가중치 적용후 나온 홀짝 확률\n");
+    printf("홀수 6 짝수 0 : %.2f%%\t%d개 \n홀수 5 짝수 1 : %.2f%%\t%d개\n홀수 4 짝수 2 : %.2f%%\t%d개\n홀수 3 짝수 3 : %.2f%%\t%d개\n홀수 2 짝수 4 : %.2f%%\t%d개\n홀수 1 짝수 5 : %.2f%%\t%d개\n홀수 0 짝수 6 : %.2f%%\t%d개\n전체 횟수 : %d \n",
+        ((double)weight[0].zero_six_count / weight[0].total_count) * 100, weight[0].zero_six_count, ((double)weight[0].one_five_count / weight[0].total_count) * 100,
+        weight[0].one_five_count, ((double)weight[0].two_four_count / weight[0].total_count) * 100, weight[0].two_four_count,
+            ((double)weight[0].three_three_count / weight[0].total_count) * 100, weight[0].three_three_count, ((double)weight[0].four_two_count / weight[0].total_count) * 100,
+                weight[0].four_two_count, ((double)weight[0].five_one_count / weight[0].total_count) * 100, weight[0].five_one_count,
+                    ((double)weight[0].six_zero_count / weight[0].total_count) * 100, weight[0].six_zero_count, weight[0].total_count);
 
 }
 
@@ -493,13 +493,14 @@ void probaility_value() // 경우의수 추출하는 함수
 {
     int value;
     value = comb(45, 6);//로또당첨확률(45중에서 6개의 숫자를 순서 상관없이 추출하는 경우의 수)
+    printf("수학적 홀짝 숫자에 따른 확률\n");
     printf("로또 당첨확률:%d\n", value);
     int com[7] = { 0, };
     for (int k = 0; k < 7; k++) {
         com[k] = comb(23, 6 - k) * comb(22, k);
     }
     for (int r = 0; r < 7; r++) {
-        printf("홀수 %d개 짝수 %d개의 확률: %.2f%%\n", 6 - r, r, ((double)com[r]/value)*100);
+        printf("홀수 %d개 짝수 %d개의 확률: %.2f%%   %d개\n", 6 - r, r, ((double)com[r]/value)*100, com[r]);
     }
 }
 

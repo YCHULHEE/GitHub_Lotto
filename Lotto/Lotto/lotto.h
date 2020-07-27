@@ -8,7 +8,7 @@
 
 /*확률이 높은 숫자를 출력하는 함수 */
 void highcheck_print(int a);
-/*확률이 낮은 숫자를 출력하는 함수*/
+/*번호가 높은 순서대로 출력하는 함수*/
 void lowcheck_print(int a);
 /*프로그램을 통해 나온 당첨횟수를 오름차순으로 나열해주는 함수*/
 void count_check1();

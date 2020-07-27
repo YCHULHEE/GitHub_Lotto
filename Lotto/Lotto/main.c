@@ -10,17 +10,15 @@ int main(void)
 {
     static int number = 1; // 로또 회차 담는 변수
     static int total = 578422000; // 로또 총 금액 담는 변수
-    int tn, mn; // 로또 변수
     static int hm = 0; // 결제 금액 담는 변수
+    int tn; // 횟수 저장하는 변수
     char qs; // y/n 값 받는 변수
     int at_num; // 수동 자동 저장하는 변수
-    int manual_aray[] = { 0, }; // 저장되는 변수
     int x = 23; //타이틀화면이 표시되는 x좌표 
     int y = 4; //타이틀화면이 표시되는 y좌표 
     int cnt; //타이틀 프레임을 세는 변수  
     srand((unsigned)time(NULL));  //시간을 이용한 시드값 설정하는 함수
     while (1) {
-
         SetConsoleTitle("Lotto Program");
         system("mode con cols=120 lines=48");
         system("color E");
@@ -39,7 +37,6 @@ int main(void)
         gotoxy(x, y + 12); printf("----로또 1등 산출 프로그램----\n"); Sleep(100);
         gotoxy(x, y + 13); printf("로또 회차를 입력해주세요.\n"); Sleep(100);
         gotoxy(x, y + 14); scanf("%d", &tn); // 로또 회차
-  
         gotoxy(x, y + 15); printf("1.\t자동 입력\n");
         gotoxy(x, y + 16); scanf("%d", &at_num);
         gotoxy(x, y + 17); printf("------------------------------\n");
